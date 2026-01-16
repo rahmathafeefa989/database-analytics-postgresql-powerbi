@@ -1,1 +1,9 @@
+INSERT INTO order_items (order_id, product_name, quantity, price) VALUES
+(1, 'Laptop', 1, 1200.00),
+(1, 'Mouse', 2, 25.00),
+(2, 'Keyboard', 1, 80.00),
+(3, 'Monitor', 2, 300.00),
+(4, 'Tablet', 1, 400.00),
+(5, 'Headphones', 1, 150.00),
+(6, 'Smartphone', 1, 900.00);
 
