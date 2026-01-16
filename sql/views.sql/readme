@@ -1,1 +1,42 @@
+Revenue View
+CREATE VIEW vw_monthly_revenue AS
+SELECT
+    DATE_TRUNC('month', o.order_date) AS month,
+    SUM(oi.quantity * oi.price) AS monthly_revenue
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.order_status = 'Completed'
+GROUP BY month
+ORDER BY month;
+
+*************************************************************************
+
+Customer Revenue View
+CREATE VIEW vw_customer_revenue AS
+SELECT
+    c.customer_id,
+    c.customer_name,
+    c.country,
+    SUM(oi.quantity * oi.price) AS customer_revenue
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.order_status = 'Completed'
+GROUP BY c.customer_id, c.customer_name, c.country;
+
+*****************************************************************************
+
+Order Summary View
+CREATE VIEW vw_order_summary AS
+SELECT
+    o.order_id,
+    o.order_date,
+    c.customer_name,
+    c.country,
+    SUM(oi.quantity * oi.price) AS order_total
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.order_status = 'Completed'
+GROUP BY o.order_id, o.order_date, c.customer_name, c.country;
 
